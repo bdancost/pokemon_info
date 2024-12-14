@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json();
       })
       .then((data) => {
-        pokemonImage.src = data.sprites.front_default;
+        const largeImage = data.sprites.other["official-artwork"].front_default;
+
+        pokemonImage.src = largeImage ? largeImage : data.sprites.front_default;
         pokemonName.textContent = data.name.toUpperCase();
         pokemonType.textContent =
           "Type: " +
@@ -48,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
           li.textContent = ability.ability.name;
           pokemonAbilities.appendChild(li);
         });
+
+        pokemonInput.value = "";
       })
       .catch((error) => {
         console.log(error);
